@@ -1,11 +1,8 @@
 # JavaScript
 
 <ol>
-  <li><a href="https://www.w3schools.com/js/js_scope.asp">Scope</a></li><br>
-  <li><a href="https://www.w3schools.com/js/js_this.asp">This Keyword</a></li><br>
-  <li><a href="https://www.w3schools.com/js/js_arrow_function.asp">Arrow Function</a></li><br>
-  <li><a href="https://www.w3schools.com/js/js_classes.asp">Classes</a></li><br>
-  <li><a href="https://www.w3schools.com/js/js_modules.asp">Modules</a></li><br>
-  <li><a href="https://www.w3schools.com/jsref/met_document_queryselector.asp">DOM Document querySelector</a></li><br>
-  <li><a href="https://www.w3schools.com/js/js_htmldom_eventlistener.asp">DOM EventListener</a></li><br>
+  <li><a href="https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html">TypeScript for the New Programmer</a></li><br>
+  <li><a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html">TypeScript for JavaScript Programmers</a></li><br>
+  <li><a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html">TypeScript for Functional Programmers</a></li><br>
+  <li><a href="https://www.typescriptlang.org/docs/handbook/typescript-tooling-in-5-minutes.html">TypeScript Tooling in 5 minutes</a></li><br>
 </ol>
