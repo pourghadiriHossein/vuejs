@@ -1,4 +1,4 @@
-# JavaScript
+# TypeScript
 
 <ol>
   <li><a href="https://code.visualstudio.com/docs/typescript/typescript-compiling">TypeScript Compiling with Visual Studio Code</a></li><br>
