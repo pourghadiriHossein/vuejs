@@ -1,35 +1,23 @@
 # TypeScript
-<h1>Functions</h1>
+<h1>Roude Map</h1>
 
 <ol>
   <li>
-    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-functions/">
-      Functions
-    </a>
+    Learn Type Script
   </li><br>
   <li>
-    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-function-types/">
-       Function types
-    </a>
+    Create Laravel Project For Server Side
   </li><br>
   <li>
-    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-optional-parameters/">
-      Optional Parameters
-    </a>
+    Create Quasar Project For Client Side
   </li><br>
   <li>
-    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-default-parameters/">
-      Default Parameters
-    </a>
+    Develop Laravel Project Until Primary State
   </li><br>
   <li>
-    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-rest-parameters/">
-      Rest Parameters
-    </a>
+    Develop Quasar Project Until Connect Server Side To Client Side
   </li><br>
   <li>
-    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-function-overloadings/">
-       Function overloadings
-    </a>
+    Develop Both Side Step By Step
   </li><br>
 </ol>
