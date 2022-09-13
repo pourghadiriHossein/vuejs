@@ -1,23 +1,35 @@
-# WELCOME TO VUE.JS TERM
-<h1>Roude Map</h1>
+# TypeScript
+<h1>Functions</h1>
 
 <ol>
   <li>
-    Learn Type Script
+    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-functions/">
+      Functions
+    </a>
   </li><br>
   <li>
-    Create Laravel Project For Server Side
+    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-function-types/">
+       Function types
+    </a>
   </li><br>
   <li>
-    Create Quasar Project For Client Side
+    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-optional-parameters/">
+      Optional Parameters
+    </a>
   </li><br>
   <li>
-    Develop Laravel Project Until Primary State
+    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-default-parameters/">
+      Default Parameters
+    </a>
   </li><br>
   <li>
-    Develop Quasar Project Until Connect Server Side To Client Side
+    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-rest-parameters/">
+      Rest Parameters
+    </a>
   </li><br>
   <li>
-    Develop Both Side Step By Step
+    <a href="https://www.typescripttutorial.net/typescript-tutorial/typescript-function-overloadings/">
+       Function overloadings
+    </a>
   </li><br>
 </ol>
