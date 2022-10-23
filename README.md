@@ -69,15 +69,15 @@
             </ul>
         </li><br>
         <li>
-            Create Post Model and Migartion
+            Create Post Model and Migration
         </li>
         <li>
-            Create UpVote Model and Migartion
+            Create UpVote Model and Migration
         </li>
         <li>
-            Create Media Model and Migartion
+            Create Media Model and Migration
         </li>
         <li>
-            Create model has media Migartion
+            Create model has media Migration
         </li>
     </ol>
