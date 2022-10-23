@@ -68,4 +68,16 @@
                 </li><br>
             </ul>
         </li><br>
+        <li>
+            Create Post Model and Migartion
+        </li>
+        <li>
+            Create UpVote Model and Migartion
+        </li>
+        <li>
+            Create Media Model and Migartion
+        </li>
+        <li>
+            Create model has media Migartion
+        </li>
     </ol>
