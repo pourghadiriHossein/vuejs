@@ -1,0 +1,45 @@
+import { RouteRecordRaw } from 'vue-router';
+
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'login',
+    component: () => import('src/layouts/login/loginLayout.vue'),
+    children: [{ path: '', component: () => import('pages/login/loginPage.vue') }],
+  },
+  {
+    path: '/dashboard',
+    component: () => import('src/layouts/dashboard/DashboardLayout.vue'),
+    children: [
+    {
+      path: 'dashboard',
+      name: 'dashboard',
+      component: () => import('src/pages/dashboard/DashboardPage.vue'),
+    },
+    {
+      path: 'myPosts',
+      name: 'myPosts',
+      component: () => import('src/pages/dashboard/MyPostsPage.vue'),
+    },
+    {
+      path: 'allPosts',
+      name: 'allPosts',
+      component: () => import('src/pages/dashboard/AllPostsPage.vue'),
+    },
+    {
+      path: 'allUsers',
+      name: 'allUsers',
+      component: () => import('src/pages/dashboard/AllUsersPage.vue'),
+    }
+  ],
+  },
+
+  // Always leave this as last one,
+  // but you can also remove it
+  {
+    path: '/:catchAll(.*)*',
+    component: () => import('pages/ErrorNotFound.vue'),
+  },
+];
+
+export default routes;
