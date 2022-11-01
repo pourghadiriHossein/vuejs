@@ -14,22 +14,27 @@
                     php artisan passport:install
                 </li><br>
                 <br><li>
-                    Set api Guard for passport in config/auth.php
+                    Set Client ID and Client Secret Key in .ENV
                 </li><br>
                 <br><li>
-                    Add Passport Load Key of Deploying Passport on Auth Service Provider
+                    Set api Guard for passport in config/auth.php
+                    <br><ol>
+                    <li>
+                        'api' => [<br>
+                             'driver' => 'passport',<br>
+                             'provider' => 'users',<br>
+                         ],<br>
+                    </li>
+                    </ol><br>
+                </li><br>
+                <br><li>
+                    Add Passport Load Key of Deploying Passport on AuthServiceProvider.php boot
                 </li><br>
                 <br><li>
                     Create secrets Folder in App Directory then Create oauth Folder in secrets Folder
                 </li><br>
                 <br><li>
                     php artisan passport:keys 
-                </li><br>
-                <br><li>
-                    Create Oauth Seeder and Complete 
-                </li><br>
-                <br><li>
-                    Set Client ID and Client Secret Key in .ENV
                 </li><br>
                 <br><li>
                     Create Oauth Seeder and Complete 
