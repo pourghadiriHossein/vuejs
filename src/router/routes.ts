@@ -3,9 +3,9 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'login',
     component: () => import('src/layouts/login/loginLayout.vue'),
-    children: [{ path: '', component: () => import('pages/login/loginPage.vue') }],
+    redirect: <any> route( <any> {name: 'login'} ),
+    children: [{ path: '/login', name: 'login', component: () => import('pages/login/loginPage.vue') }],
   },
   {
     path: '/dashboard',
