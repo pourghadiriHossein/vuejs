@@ -58,6 +58,7 @@
       </div>
       <div class="q-pa-md q-gutter-sm text-center">
         <q-btn class="full-width" label="Update" color="light-blue-8" @click="prompt = true" />
+        <q-btn class="full-width" label="Logout" color="red" @click="logout" />
 
         <q-dialog v-model="prompt" persistent>
           <q-card style="min-width: 350px">
@@ -106,11 +107,15 @@
 import { ref } from 'vue';
 import { accessMenu } from 'src/components/dashboard/menuListComponent';
 import { profile } from 'src/components/dashboard/profileComponent';
+import { useAuthStore } from 'src/stores/auth-store'
+import { useRouter } from 'vue-router';
 
 export default {
   setup () {
     const leftDrawerOpen = ref(false)
     const rightDrawerOpen = ref(false)
+    const authStore = useAuthStore();
+    const router = useRouter();
 
     return {
       leftDrawerOpen,
@@ -126,6 +131,10 @@ export default {
       },
       prompt: ref(false),
       model: ref(null),
+      logout() {
+        authStore.logout();
+        router.replace({ name: 'login' });
+      },
     }
   }
 }
