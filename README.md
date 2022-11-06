@@ -17,19 +17,26 @@
           <br><li>create user model</li>
       </ul>
   </li><br>
-  <li>complete login page and login process
+  <li>edit login page
       <ul>
-          <br><li>create user model</li>
+          <br><li>set click event on login button</li>
+          <br><li>Write login function in script</li>
       </ul>
   </li><br>
-  <li>create models folder
+  <li>create new boot auth
       <ul>
-          <br><li>create user model</li>
+          <br><li>add auth in boot in quasar.config.js  file</li>
       </ul>
   </li><br>
-  <li>create models folder
+  <li>set condition for route and redirect it
       <ul>
-          <br><li>create user model</li>
+          <br><li>when the user is logged in, the user is redirected to the dashboard and can't go back to the login page and contrariwise</li>
+      </ul>
+  </li><br>
+  <li>edit dashboard layout
+      <ul>
+          <br><li>create and set click event on logout button</li>
+          <br><li>Write logout function in script</li>
       </ul>
   </li><br>
 </ol>
