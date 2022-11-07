@@ -1,3 +1,4 @@
+import { route } from 'quasar/wrappers';
 import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
