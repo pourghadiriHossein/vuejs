@@ -30,7 +30,7 @@
   </li><br>
   <li>set condition for route and redirect it
       <ul>
-          <br><li>when the user is logged in, the user is redirected to the dashboard and can't go back to the login page and contrariwise</li>
+          <br><li>when the user is logged in, the user is redirected to the dashboard and can't go back to the login page and vice versa</li>
       </ul>
   </li><br>
   <li>edit dashboard layout
