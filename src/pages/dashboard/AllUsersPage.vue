@@ -21,13 +21,13 @@
               <div class="text-h6">Create User</div>
             </q-card-section>
             <q-card-section class="q-pt-none">
-              <q-input dense @keyup.enter="createUser = false" label="Enter Your User Name"/>
+              <q-input dense @keyup.enter="createUser = false" model-value="" label="Enter Your User Name"/>
             </q-card-section>
             <q-card-section class="q-pt-none">
-              <q-input dense @keyup.enter="createUser = false" label="Enter Your E-Mail"/>
+              <q-input dense @keyup.enter="createUser = false" model-value="" label="Enter Your E-Mail"/>
             </q-card-section>
             <q-card-section class="q-pt-none">
-              <q-input type="password" dense @keyup.enter="createUser = false" label="Enter Your Password"/>
+              <q-input type="password" dense @keyup.enter="createUser = false" model-value="" label="Enter Your Password"/>
             </q-card-section>
             <q-card-section class="q-pt-none">
               <q-file filled bottom-slots v-model="model" label="Avatar" counter>
@@ -59,7 +59,7 @@
               {{ col.label }}
             </q-th>
             <q-th auto-width>
-              {{ label = "Tools" }}
+              {{ "Tools" }}
             </q-th>
           </q-tr>
         </template>
@@ -81,13 +81,13 @@
                     <div class="text-h6">Update User</div>
                   </q-card-section>
                   <q-card-section class="q-pt-none">
-                    <q-input dense @keyup.enter="updateUser = false" label="Enter Your User Name"/>
+                    <q-input dense @keyup.enter="updateUser = false" model-value="" label="Enter Your User Name"/>
                   </q-card-section>
                   <q-card-section class="q-pt-none">
-                    <q-input dense @keyup.enter="updateUser = false" label="Enter Your E-Mail"/>
+                    <q-input dense @keyup.enter="updateUser = false" model-value="" label="Enter Your E-Mail"/>
                   </q-card-section>
                   <q-card-section class="q-pt-none">
-                    <q-input type="password" dense @keyup.enter="updateUser = false" label="Enter Your Password"/>
+                    <q-input type="password" dense @keyup.enter="updateUser = false" model-value="" label="Enter Your Password"/>
                   </q-card-section>
                   <q-card-section class="q-pt-none">
                     <q-file filled bottom-slots v-model="model" label="Avatar" counter>
@@ -128,21 +128,12 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
-import {columns, rows} from 'src/components/dashboard/allUserComponent';
-export default {
-  setup () {
-    return {
-      createUser: ref(false),
-      updateUser: ref(false),
-      deleteUser: ref(false),
-      model: ref(null),
-      filter: ref(''),
-      columns,
-      rows
-    }
-  }
-}
-
+<script lang="ts" setup>
+  import { ref } from 'vue'
+  import {columns, rows} from 'src/components/dashboard/allUserComponent';
+  const createUser = ref(false);
+  const updateUser = ref(false);
+  const deleteUser = ref(false);
+  const model = ref(null);
+  const filter = ref('');
 </script>
