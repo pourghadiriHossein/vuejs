@@ -1,10 +1,10 @@
-const columns = [
+const columns: any = [
   { name: 'id', align: 'left', label: 'ID', field: 'id', sortable: true },
   { name: 'name', align: 'center', label: 'User Name', field: 'name', sortable: true },
   { name: 'email', align: 'center', label: 'E-Mail', field: 'email', sortable: true },
 ]
 
-const rows = [
+const rows: any = [
   {
     id: 1,
     name: 'Hossein Pourghadiri',
