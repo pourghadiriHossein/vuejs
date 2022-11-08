@@ -25,7 +25,7 @@
               {{ col.label }}
             </q-th>
             <q-th auto-width>
-              {{ label = "Tools" }}
+              Tools
             </q-th>
           </q-tr>
         </template>
@@ -48,10 +48,10 @@
                   </q-card-section>
 
                   <q-card-section class="q-pt-none">
-                    <q-input dense @keyup.enter="updatePost = false" label="Enter Your Title"/>
+                    <q-input dense @keyup.enter="updatePost = false" model-value="" label="Enter Your Title"/>
                   </q-card-section>
                   <q-card-section class="q-pt-none">
-                      <q-input type="textarea" dense @keyup.enter="updatePost = false" label="Enter Your Description"/>
+                      <q-input type="textarea" dense @keyup.enter="updatePost = false" model-value="" label="Enter Your Description"/>
                   </q-card-section>
                   <q-card-section class="q-pt-none">
                     <q-file filled bottom-slots v-model="model" label="Post Image" counter>
@@ -112,20 +112,11 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
-import {columns, rows} from 'src/components/dashboard/allPostComponent';
-export default {
-  setup () {
-    return {
-      updatePost: ref(false),
-      deletePost: ref(false),
-      model: ref(null),
-      filter: ref(''),
-      columns,
-      rows
-    }
-  }
-}
-
+<script lang="ts" setup>
+  import { ref } from 'vue'
+  import {columns, rows} from 'src/components/dashboard/allPostComponent';
+  const updatePost = ref(false);
+  const deletePost = ref(false);
+  const model = ref(null);
+  const filter = ref('');
 </script>
