@@ -1,11 +1,11 @@
-const columns = [
+const columns: any = [
   { name: 'id', align: 'left', label: 'ID', field: 'id', sortable: true },
   { name: 'name', align: 'center', label: 'User Name', field: 'name', sortable: true },
   { name: 'title', align: 'center', label: 'Title', field: 'title', sortable: true },
   { name: 'description', align: 'center', label: 'Description', field: 'description', sortable: true },
 ]
 
-const rows = [
+const rows: any = [
   {
     id: 1,
     name: 'Hossein Pourghadiri',
