@@ -1,41 +1,18 @@
-# Quasar App (clientside)
-
-A Quasar Project
-
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```
-
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
-
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+<ol>
+  <li>Create ts and vue folder in components/dashboard directory then separate the files</li><br>
+  <li>Create .vue component  
+      <ul>
+          <br><li>DeletePost</li>
+          <br><li>DeleteUser</li>
+          <br><li>UpdatePost</li>
+          <br><li>DeletePost</li>
+      </ul>
+  </li><br>
+  <li>Edit Dashbord Page file  
+      <ul>
+          <br><li>MyPostsPage</li>
+          <br><li>AllPostsPage</li>
+          <br><li>AllUsersPage</li>
+      </ul>
+  </li><br>
+</ol>
