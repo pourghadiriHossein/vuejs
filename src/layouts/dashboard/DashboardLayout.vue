@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="hHh LpR fFf">
 
     <q-header elevated class="text-white">
       <q-toolbar>
@@ -105,8 +105,8 @@
 <script>
 
 import { ref } from 'vue';
-import { accessMenu } from 'src/components/dashboard/menuListComponent';
-import { profile } from 'src/components/dashboard/profileComponent';
+import { accessMenu } from 'src/components/dashboard/ts/menuListComponent';
+import { profile } from 'src/components/dashboard/ts/profileComponent';
 import { useAuthStore } from 'src/stores/auth-store'
 import { useRouter } from 'vue-router';
 
