@@ -14,40 +14,13 @@
             <q-icon name="search" />
           </template>
         </q-input>
-        <q-btn label="Create New User" color="light-blue-8" class="q-ml-md" @click="createUser = true"/>
-        <q-dialog v-model="createUser" persistent>
-          <q-card style="min-width: 350px">
-            <q-card-section>
-              <div class="text-h6">Create User</div>
-            </q-card-section>
-            <q-card-section class="q-pt-none">
-              <q-input dense @keyup.enter="createUser = false" model-value="" label="Enter Your User Name"/>
-            </q-card-section>
-            <q-card-section class="q-pt-none">
-              <q-input dense @keyup.enter="createUser = false" model-value="" label="Enter Your E-Mail"/>
-            </q-card-section>
-            <q-card-section class="q-pt-none">
-              <q-input type="password" dense @keyup.enter="createUser = false" model-value="" label="Enter Your Password"/>
-            </q-card-section>
-            <q-card-section class="q-pt-none">
-              <q-file filled bottom-slots v-model="model" label="Avatar" counter>
-                <template v-slot:prepend>
-                  <q-icon name="cloud_upload" @click.stop.prevent />
-                </template>
-                <template v-slot:append>
-                  <q-icon name="close" @click.stop.prevent="model = null" class="cursor-pointer" />
-                </template>
-                <template v-slot:hint>
-                  File Size
-                </template>
-              </q-file>
-            </q-card-section>
-            <q-card-actions align="right" class="text-primary">
-              <q-btn color="red" icon-right="close" label="Cancel" @click="createUser = false"/>
-              <q-btn color="light-blue-8" icon-right="create" label="Create" />
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
+        <q-btn label="Create New User" color="light-blue-8" class="q-ml-md" @click="openConfirmCreateUserDialog()"/>
+        <create-user
+        v-model:model-value="confirmOpenCreateUser"
+        :id="createUserDialogBox.id"
+        :username="createUserDialogBox.username"
+        :email="createUserDialogBox.email"
+        ></create-user>
       </template>
       <template v-slot:header="props">
           <q-tr :props="props">
@@ -97,12 +70,16 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import {columns, rows} from 'src/components/dashboard/ts/allUserComponent';
+  import CreateUser from 'src/components/dashboard/vue/CreateUser.vue'
   import UpdateUser from 'src/components/dashboard/vue/UpdateUser.vue'
   import DeleteUser from 'src/components/dashboard/vue/DeleteUser.vue'
 
-  const createUser = ref(false);
-  const model = ref(null);
   const filter = ref('');
+  const createUserDialogBox = ref({
+    id: <number> 0,
+    username: <string> '',
+    email: <string> '',
+  });
   const updateUserDialogBox = ref({
     id: <number> 0,
     username: <string> '',
@@ -113,6 +90,13 @@
     username: <string> '',
     email: <string> '',
   });
+  const confirmOpenCreateUser = ref(false);
+  const openConfirmCreateUserDialog = () => {
+    createUserDialogBox.value.id = 0;
+    createUserDialogBox.value.username = '';
+    createUserDialogBox.value.email = '';
+    confirmOpenCreateUser.value = true;
+  };
   const confirmOpenUpdateUser = ref(false);
   const openConfirmUpdateUserDialog = (row: any) => {
     updateUserDialogBox.value.id = row.id;

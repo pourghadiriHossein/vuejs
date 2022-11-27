@@ -11,70 +11,90 @@ const rows: any = [
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.27,
+    longitude: 49.53,
   },
   {
     id: 2,
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.25,
+    longitude: 49.58,
   },
   {
     id: 3,
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.31,
+    longitude: 49.61,
   },
   {
     id: 4,
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.26,
+    longitude: 49.58,
   },
   {
     id: 5,
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.27,
+    longitude: 49.57,
   },
   {
     id: 6,
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.22,
+    longitude: 49.53,
   },
   {
     id: 7,
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.26,
+    longitude: 49.51,
   },
   {
     id: 8,
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.24,
+    longitude: 49.55,
   },
   {
     id: 9,
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.24,
+    longitude: 49.58,
   },
   {
     id: 10,
     name: 'Hossein Pourghadiri',
     title: 'Masal',
     description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg'
+    image: 'src/image/mountains.jpg',
+    latitude: 37.27,
+    longitude: 49.51,
   },
 ]
 

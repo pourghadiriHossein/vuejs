@@ -11,17 +11,17 @@
     id: {
       default: 0
     },
+    img: {
+      default: ''
+    },
     title: {
-      default: 'Update'
+      default: ''
+    },
+    username: {
+      default: ''
     },
     description: {
-      default: 'No Description'
-    },
-    latitude: {
-      default: 37.28
-    },
-    longitude: {
-      default: 49.6
+      default: ''
     }
   });
 
@@ -40,7 +40,7 @@
   <q-dialog :model-value="modelValue" persistent>
     <q-card style="min-width: 350px">
       <q-card-section>
-        <div class="text-h6">Update Post {{ title }}</div>
+        <div class="text-h6">Create New Post</div>
       </q-card-section>
       <q-card-section class="q-pt-none">
         <q-input dense :model-value="title" label="Enter Your Title"/>
@@ -61,13 +61,10 @@
           </template>
         </q-file>
       </q-card-section>
-      <map-view
-      :latitude="latitude"
-      :longitude="longitude"
-      ></map-view>
+      <map-view></map-view>
       <q-card-actions align="right" class="text-primary">
         <q-btn color="red" icon-right="close" label="Cancel" @click="close"/>
-        <q-btn color="light-blue-8" icon-right="update" label="Update" @click="accepted"/>
+        <q-btn color="light-blue-8" icon-right="create" label="Create" @click="accepted"/>
       </q-card-actions>
     </q-card>
   </q-dialog>

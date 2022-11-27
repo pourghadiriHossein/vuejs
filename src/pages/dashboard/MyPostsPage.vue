@@ -14,37 +14,15 @@
             <q-icon name="search" />
           </template>
         </q-input>
-        <q-btn label="Create New Post" color="light-blue-8" class="q-ml-md" @click="createPost = true"/>
-        <q-dialog v-model="createPost" persistent>
-          <q-card style="min-width: 350px">
-            <q-card-section>
-              <div class="text-h6">Create Post</div>
-            </q-card-section>
-            <q-card-section class="q-pt-none">
-              <q-input dense @keyup.enter="createPost = false" model-value="" label="Enter Your Title"/>
-            </q-card-section>
-            <q-card-section class="q-pt-none">
-                <q-input type="textarea" dense @keyup.enter="createPost = false" model-value="" label="Enter Your Description"/>
-            </q-card-section>
-            <q-card-section class="q-pt-none">
-              <q-file filled bottom-slots v-model="model" label="Post Image" counter>
-                <template v-slot:prepend>
-                  <q-icon name="cloud_upload" @click.stop.prevent />
-                </template>
-                <template v-slot:append>
-                  <q-icon name="close" @click.stop.prevent="model = null" class="cursor-pointer" />
-                </template>
-                <template v-slot:hint>
-                  File Size
-                </template>
-              </q-file>
-            </q-card-section>
-            <q-card-actions align="right" class="text-primary">
-              <q-btn color="red" icon-right="close" label="Cancel" @click="createPost = false"/>
-              <q-btn color="light-blue-8" icon-right="create" label="Create" />
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
+        <q-btn label="Create New Post" color="light-blue-8" class="q-ml-md" @click="openConfirmCreatePostDialog()"/>
+        <create-post
+        v-model:model-value="confirmOpenCreatePost"
+        :id="createPostParameter.id"
+        :img="createPostParameter.img"
+        :title="createPostParameter.title"
+        :username="createPostParameter.username"
+        :description="createPostParameter.description"
+        ></create-post>
       </template>
       <template v-slot:header="props">
           <q-tr :props="props">
@@ -83,6 +61,8 @@
   :id="updatePostParameter.id"
   :title="updatePostParameter.title"
   :description="updatePostParameter.description"
+  :latitude="updatePostParameter.latitude"
+  :longitude="updatePostParameter.longitude"
   ></update-post>
   <delete-post
   v-model:model-value="confirmOpenDeletePost"
@@ -91,36 +71,60 @@
   :title="deletePostParameter.title"
   :username="deletePostParameter.username"
   :description="deletePostParameter.description"
+  :latitude="deletePostParameter.latitude"
+  :longitude="deletePostParameter.longitude"
   ></delete-post>
 </template>
 
 <script lang="ts" setup>
   import { ref } from 'vue'
   import {columns, rows} from 'src/components/dashboard/ts/myPostComponent';
+  import CreatePost from 'src/components/dashboard/vue/CreatePost.vue'
   import UpdatePost from 'src/components/dashboard/vue/UpdatePost.vue';
   import DeletePost from 'src/components/dashboard/vue/DeletePost.vue';
   import {profile} from 'src/components/dashboard/ts/profileComponent';
 
-  const createPost = ref(false);
-  const model = ref(null);
+
   const filter = ref('');
-  const updatePostParameter = ref({
-    id: <number>0,
-    title: <string> '',
-    description: <string> ''
-  });
-  const deletePostParameter = ref({
+  const createPostParameter = ref({
     id: <number>0,
     img: <string> '',
     title: <string> '',
     username: <string> '',
     description: <string> ''
   });
+  const updatePostParameter = ref({
+    id: <number>0,
+    title: <string> '',
+    description: <string> '',
+    latitude: <number> 0,
+    longitude: <number> 0,
+  });
+  const deletePostParameter = ref({
+    id: <number>0,
+    img: <string> '',
+    title: <string> '',
+    username: <string> '',
+    description: <string> '',
+    latitude: <number> 0,
+    longitude: <number> 0,
+  });
+  const confirmOpenCreatePost = ref(false);
+  const openConfirmCreatePostDialog = () => {
+    createPostParameter.value.id = 0;
+    createPostParameter.value.img = '';
+    createPostParameter.value.title = '';
+    createPostParameter.value.username = profile.username;
+    createPostParameter.value.description = '';
+    confirmOpenCreatePost.value = true;
+  };
   const confirmOpenUpdatePost = ref(false);
   const openConfirmUpdatePostDialog = (row: any) => {
     updatePostParameter.value.id = row.id;
     updatePostParameter.value.title = row.title;
     updatePostParameter.value.description = row.description;
+    updatePostParameter.value.latitude = row.latitude;
+    updatePostParameter.value.longitude = row.longitude;
     confirmOpenUpdatePost.value = true;
   };
   const confirmOpenDeletePost = ref(false);
@@ -130,6 +134,8 @@
     deletePostParameter.value.title = row.title;
     deletePostParameter.value.username = profile.username;
     deletePostParameter.value.description = row.description;
+    deletePostParameter.value.latitude = row.latitude;
+    deletePostParameter.value.longitude = row.longitude;
     confirmOpenDeletePost.value = true;
   };
 </script>
