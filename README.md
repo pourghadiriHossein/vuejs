@@ -5,7 +5,7 @@
           <br><li>DeletePost</li>
           <br><li>DeleteUser</li>
           <br><li>UpdatePost</li>
-          <br><li>DeletePost</li>
+          <br><li>UpdateUser</li>
       </ul>
   </li><br>
   <li>Edit Dashbord Page file  
