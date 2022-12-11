@@ -8,13 +8,14 @@
         <q-card square bordered class="q-pa-lg">
           <q-card-section>
             <q-form class="q-gutter-md">
-              <q-input square filled clearable v-model="user.username" type="email" label="Email" />
-              <q-input square filled clearable v-model="user.password" type="password" label="Password" />
+              <q-input square filled clearable v-model="newUser.name" type="text" label="First Name & Last Name" />
+              <q-input square filled clearable v-model="newUser.email" type="email" label="Email" />
+              <q-input square filled clearable v-model="newUser.password" type="password" label="Password" />
             </q-form>
           </q-card-section>
           <q-card-actions class="q-px-md">
-            <q-btn @click="login" unelevated color="light-blue-8" size="lg" class="full-width" label="login"/>
-            <q-btn @click="register" unelevated color="red" size="lg" class="full-width q-ma-sm" label="Register"/>
+            <q-btn @click="register" unelevated color="light-blue-8" size="lg" class="full-width" label="Register"/>
+            <q-btn @click="login" unelevated color="red" size="lg" class="full-width q-ma-sm" label="Login"/>
           </q-card-actions>
           <q-card-section class="text-center q-pa-none">
           </q-card-section>
@@ -25,31 +26,24 @@
 </template>
 
 <script>
-import { User } from 'src/models/user';
 import { ref } from 'vue';
-import { useAuthStore } from 'src/stores/auth-store'
 import { useRouter } from 'vue-router';
-
-const user = ref(new User('guest'));
 
 export default {
     data () {
-      const authStore = useAuthStore();
+      const newUser = ref({
+        name:  '',
+        email: '',
+        password: ''
+      });
       const router = useRouter();
       return {
-        user,
-        login () {
-          authStore
-          .authenticate(user.value.username, user.value.password)
-          .then(() => {
-            router.replace({name: 'dashboard'})
-          },
-          (error) => {
-            console.log(`No Internet, Connection Lost because server not serve!!!\n${error}`);
-          })
+        newUser,
+        register () {
+          console.log('hi');
         },
-        register() {
-          router.replace({name: 'register'})
+        login() {
+          router.replace({name: 'login'})
         },
       }
     }

@@ -67,13 +67,16 @@
             </q-card-section>
 
             <q-card-section class="q-pt-none">
-              <q-input dense :model-value="profile.username" @keyup.enter="prompt = false" label="Your User Name" />
+              <q-input dense v-model:model-value="profile.username" @keyup.enter="prompt = false" label="Your User Name" />
             </q-card-section>
             <q-card-section class="q-pt-none">
-              <q-input dense :model-value="profile.email" @keyup.enter="prompt = false" label="Your E-Mail" />
+              <q-input dense v-model:model-value="profile.email" @keyup.enter="prompt = false" label="Your E-Mail" />
             </q-card-section>
             <q-card-section class="q-pt-none">
-              <q-file filled bottom-slots v-model="model" label="Label" counter>
+              <q-input dense v-model:model-value="profile.password" @keyup.enter="prompt = false" label="Your Password" />
+            </q-card-section>
+            <q-card-section class="q-pt-none">
+              <q-file filled bottom-slots v-model="model" label="Avatar" counter>
               <template v-slot:prepend>
                 <q-icon name="cloud_upload" @click.stop.prevent />
               </template>
@@ -88,7 +91,7 @@
             </q-card-section>
             <q-card-actions align="right" class="text-primary">
               <q-btn flat label="Cancel" v-close-popup />
-              <q-btn flat label="Submit" v-close-popup />
+              <q-btn flat label="Submit" @click="test()" />
             </q-card-actions>
           </q-card>
         </q-dialog>
