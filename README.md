@@ -1,41 +1,14 @@
-# Quasar App (clientside)
-
-A Quasar Project
-
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```
-
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
-
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+<ol>
+  <li>Register  
+      <ul>
+          <br><li>Create Register Route</li>
+          <br><li>Create Register Page</li>
+      </ul>
+  </li><br>
+  <li>Update Profile dialogbox  
+      <ul>
+          <br><li>Add Password Input</li>
+          <br><li>Rename Image input from lebal to Avatar</li>
+      </ul>
+  </li><br>
+</ol>
