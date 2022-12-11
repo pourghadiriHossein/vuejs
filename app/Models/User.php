@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function upVotes() {
         return $this->hasMany(UpVote::class);
     }
+    
+    public function media() {
+        return $this->morphToMany(Media::class, 'model', 'model_has_media');
+    }
 }
