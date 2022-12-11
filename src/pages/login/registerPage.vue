@@ -8,9 +8,21 @@
         <q-card square bordered class="q-pa-lg">
           <q-card-section>
             <q-form class="q-gutter-md">
-              <q-input square filled clearable v-model="newUser.name" type="text" label="First Name & Last Name" />
-              <q-input square filled clearable v-model="newUser.email" type="email" label="Email" />
-              <q-input square filled clearable v-model="newUser.password" type="password" label="Password" />
+              <q-input square filled clearable v-model:model-value="newUser.name" type="text" label="First Name & Last Name" />
+              <q-input square filled clearable v-model:model-value="newUser.email" type="email" label="Email" />
+              <q-input square filled clearable v-model:model-value="newUser.password" type="password" label="Password" />
+              <q-file filled bottom-slots v-model="model" label="Avatar" counter>
+              <template v-slot:prepend>
+                <q-icon name="cloud_upload" @click.stop.prevent />
+              </template>
+              <template v-slot:append>
+                <q-icon name="close" @click.stop.prevent="model = null" class="cursor-pointer" />
+              </template>
+
+              <template v-slot:hint>
+                File Size
+              </template>
+            </q-file>
             </q-form>
           </q-card-section>
           <q-card-actions class="q-px-md">
@@ -39,6 +51,7 @@ export default {
       const router = useRouter();
       return {
         newUser,
+        model: ref(null),
         register () {
           console.log('hi');
         },
