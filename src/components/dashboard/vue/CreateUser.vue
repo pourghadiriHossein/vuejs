@@ -59,7 +59,7 @@
       </q-card-section>
       <q-card-actions align="right" class="text-primary">
         <q-btn color="red" icon-right="close" label="Cancel" @click="close"/>
-        <q-btn color="light-blue-8" icon-right="create" label="Creata" @click="accepted"/>
+        <q-btn color="light-blue-8" icon-right="create" label="Create" @click="accepted"/>
       </q-card-actions>
     </q-card>
   </q-dialog>
