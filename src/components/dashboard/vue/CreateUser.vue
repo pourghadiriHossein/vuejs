@@ -2,6 +2,7 @@
   import { defineProps, defineEmits, ref } from 'vue';
 
   const model = ref(null);
+  const choice = ref(null);
 
   const props = defineProps({
     modelValue: {
@@ -15,7 +16,10 @@
     },
     email: {
       default: ''
-    }
+    },
+    options: {
+      default: ['admin', 'user']
+    },
   });
 
   const emit = defineEmits(['update:model-value', 'accepted']);
@@ -56,6 +60,9 @@
             File Size
           </template>
         </q-file>
+      </q-card-section>
+      <q-card-section>
+        <q-select v-model="choice" :options="options" label="Role" />
       </q-card-section>
       <q-card-actions align="right" class="text-primary">
         <q-btn color="red" icon-right="close" label="Cancel" @click="close"/>
