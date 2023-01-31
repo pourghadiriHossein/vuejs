@@ -1,7 +1,7 @@
 <ol>
   <li>Install maplibre package  
       <ul>
-          <br><li>npm I maplibre-gl</li>
+          <br><li>npm install maplibre-gl</li>
       </ul>
   </li><br>
   
