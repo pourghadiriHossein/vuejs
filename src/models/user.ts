@@ -22,14 +22,6 @@ export class User {
     this.password = password ?? '';
   }
 
-  static async profile() {
-    const response = await api.get('api/user/profile', { });
-    if (response.status == 200) {
-      return response;
-    }
-    throw Error('Profile failed');
-  };
-
   static async register(username: string, email: string, password: string, avatar: File) {
     const data = new FormData();
     data.append('name', username);
@@ -41,6 +33,14 @@ export class User {
       return response;
     }
     throw Error('Register Failed');
+  };
+  
+  static async profile() {
+    const response = await api.get('api/user/profile', { });
+    if (response.status == 200) {
+      return response;
+    }
+    throw Error('Profile failed');
   };
 
   static async updateProfile(id: number,username: string, email: string, password:string, avatar: File) {
