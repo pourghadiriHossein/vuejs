@@ -7,6 +7,9 @@
       :columns="columns"
       row-key="name"
       :filter="filter"
+      :rows-per-page-options="[0]"
+      v-model:pagination="pagination"
+      @request="onRequest"
     >
       <template v-slot:top-right>
         <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
@@ -53,6 +56,7 @@
   :description="updatePostParameter.description"
   :latitude="updatePostParameter.latitude"
   :longitude="updatePostParameter.longitude"
+  :refresh="onRequest"
   ></update-post>
   <delete-post
   v-model:model-value="confirmOpenDeletePost"
@@ -63,15 +67,17 @@
   :description="deletePostParameter.description"
   :latitude="deletePostParameter.latitude"
   :longitude="deletePostParameter.longitude"
+  :refresh="onRequest"
   ></delete-post>
 </template>
 
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import {columns, rows} from 'src/components/dashboard/ts/allPostComponent';
-  import UpdatePost from 'src/components/dashboard/vue/UpdatePost.vue';
-  import DeletePost from 'src/components/dashboard/vue/DeletePost.vue';
+  import {columns, rows , pagination, onRequest} from 'src/components/dashboard/ts/allPostComponent';
+  import UpdatePost from 'src/components/dashboard/vue/AdminUpdatePost.vue';
+  import DeletePost from 'src/components/dashboard/vue/AdminDeletePost.vue';
 
+  const serverRoute = 'http://127.0.0.1:8000/';
   const filter = ref('');
   const updatePostParameter = ref({
     id: <number>0,
@@ -101,7 +107,10 @@
   const confirmOpenDeletePost = ref(false);
   const openConfirmDeletePostDialog = (row: any) => {
     deletePostParameter.value.id = row.id;
-    deletePostParameter.value.img = row.image;
+    if(row.media[0]?.url)
+      deletePostParameter.value.img = serverRoute + row.media[0].url;
+    else
+      deletePostParameter.value.img = '';
     deletePostParameter.value.title = row.title;
     deletePostParameter.value.username = row.name;
     deletePostParameter.value.description = row.description;

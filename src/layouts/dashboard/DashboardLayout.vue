@@ -61,11 +61,25 @@
         <q-btn class="full-width" label="Logout" color="red" @click="logout" />
 
         <q-dialog v-model="prompt" persistent>
-          <q-card style="min-width: 350px">
+          <q-card style="width: 350px">
             <q-card-section>
               <div class="text-h6">Update Profile</div>
             </q-card-section>
 
+            <q-card-section class="q-pt-none">
+              <q-list :class="errorMessage.state" :hidden="hidden">
+              <q-item>
+                <q-btn size="sm" color="trasparent" dense icon="close" @click="closeErrorPart()"></q-btn>
+              </q-item>
+              <q-separator inset dark />
+
+              <q-item v-for="item in errorMessage.error" :key="item">
+                  <q-item-section>
+                    {{item[0] }}
+                  </q-item-section>
+                </q-item>
+            </q-list>
+            </q-card-section>
             <q-card-section class="q-pt-none">
               <q-input dense v-model:model-value="profile.username" @keyup.enter="prompt = false" label="Your User Name" />
             </q-card-section>
@@ -76,22 +90,22 @@
               <q-input dense v-model:model-value="profile.password" @keyup.enter="prompt = false" label="Your Password" />
             </q-card-section>
             <q-card-section class="q-pt-none">
-              <q-file filled bottom-slots v-model="model" label="Avatar" counter>
-              <template v-slot:prepend>
-                <q-icon name="cloud_upload" @click.stop.prevent />
-              </template>
-              <template v-slot:append>
-                <q-icon name="close" @click.stop.prevent="model = null" class="cursor-pointer" />
-              </template>
+              <q-file filled bottom-slots v-model:model-value="profile.newAvatar" label="Avatar" counter>
+                <template v-slot:prepend>
+                  <q-icon name="cloud_upload" @click.stop.prevent />
+                </template>
+                <template v-slot:append>
+                  <q-icon name="close" @click.stop.prevent="profile.newAvatar = null" class="cursor-pointer" />
+                </template>
 
-              <template v-slot:hint>
-                File Size
-              </template>
-            </q-file>
+                <template v-slot:hint>
+                  File Size
+                </template>
+              </q-file>
             </q-card-section>
             <q-card-actions align="right" class="text-primary">
               <q-btn flat label="Cancel" v-close-popup />
-              <q-btn flat label="Submit" @click="test()" />
+              <q-btn flat label="Submit" @click="update()" />
             </q-card-actions>
           </q-card>
         </q-dialog>
@@ -112,6 +126,7 @@ import { accessMenu } from 'src/components/dashboard/ts/menuListComponent';
 import { profile } from 'src/components/dashboard/ts/profileComponent';
 import { useAuthStore } from 'src/stores/auth-store'
 import { useRouter } from 'vue-router';
+import {User} from 'src/models/user';
 
 export default {
   setup () {
@@ -119,25 +134,63 @@ export default {
     const rightDrawerOpen = ref(false)
     const authStore = useAuthStore();
     const router = useRouter();
-
+    const hidden = ref(true);
+    const dangerErrorState = 'bg-red q-pa-sm text-white';
+    const successErrorState = 'bg-green q-pa-sm text-white';
+    const errorMessage = ref({
+    error:  [],
+    state: ''
+  });
     return {
       leftDrawerOpen,
       accessMenu,
       profile,
+      hidden,
+      errorMessage,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
-
       rightDrawerOpen,
       toggleRightDrawer () {
         rightDrawerOpen.value = !rightDrawerOpen.value
       },
       prompt: ref(false),
-      model: ref(null),
       logout() {
         authStore.logout();
         router.replace({ name: 'login' });
       },
+      closeErrorPart() {
+        hidden.value = !hidden.value;
+      },
+      update() {
+        User.updateProfile(
+          profile.value.id,
+          profile.value.username,
+          profile.value.email,
+          profile.value.password,
+          profile.value.newAvatar,
+        )
+        .then(
+          (response) => {
+            if(response.status == 200){
+              if(response.data.errors) {
+                errorMessage.value.error = response.data.errors;
+                errorMessage.value.state = successErrorState;
+                hidden.value = false;
+              }
+            }
+          },
+          (reject) => {
+            if(reject.response.status != 200){
+              if(reject.response.data.errors) {
+                errorMessage.value.error = reject.response.data.errors;
+                errorMessage.value.state = dangerErrorState;
+                hidden.value = false;
+              }
+            }
+          }
+        )
+      }
     }
   }
 }

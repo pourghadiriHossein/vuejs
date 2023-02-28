@@ -1,38 +1,31 @@
-export const allPost : any  = [
-  {
-    id : 1,
-    img : 'src/image/mountains.jpg',
-    latitude : 37.28,
-    longitude : 49.6,
-    title : 'Masal',
-    username : 'Hossein Pourghadiri',
-    description : 'Best Mountains and View In World',
-  },
-  {
-    id : 2,
-    img : 'src/image/mountains.jpg',
-    latitude : 37.29,
-    longitude : 49.59,
-    title : 'Alpe',
-    username : 'Ali Salari',
-    description : 'Best Mountains and View In World',
-  },
-  {
-    id : 3,
-    img : 'src/image/mountains.jpg',
-    latitude : 37.3,
-    longitude : 49.4,
-    title : 'Khalhkal',
-    username : 'Majid Etemadi',
-    description : 'Best Mountains and View In World',
-  },
-  {
-    id : 4,
-    img : 'src/image/mountains.jpg',
-    latitude : 37.3,
-    longitude : 49.61,
-    title : 'Deylaman',
-    username : 'Akbar Heydari',
-    description : 'Best Mountains and View In World',
-  },
-]
+import { Post } from 'src/models/post';
+import { ref } from 'vue';
+const serverRoute = 'http://127.0.0.1:8000/';
+const allPost : any  = ref([]);
+
+const refresh = () => {
+  if (allPost.value != null) {
+    allPost.value = [];
+  }
+  Post.allPostInDashboard()
+  .then(
+    (response) => {
+      response.data.forEach((post) => {
+        allPost.value.push(
+          {
+            id : post.id,
+            img : serverRoute + post.media[0].url,
+            latitude : post.latitude,
+            longitude : post.longitude,
+            title : post.title,
+            username : post.user.name,
+            description : post.description,
+            upVoteCount : post.up_vote_count
+          }
+        );
+      });
+    },
+  )
+}
+refresh();
+export {allPost, refresh};

@@ -29,7 +29,7 @@
       </q-card-section>
       <q-separator />
       <q-card-actions align="right">
-        <q-btn color="light-blue-8" icon-right="favorite" label="Like (0)" />
+        <q-btn color="light-blue-8" icon-right="favorite" :label="`Like ${post.upVoteCount}`" @click="like(post.id)"/>
       </q-card-actions>
     </q-card>
     </div>
@@ -61,7 +61,8 @@
 <script lang="ts" setup>
 import MapView from 'src/components/map/mapView.vue';
 import { ref } from 'vue';
-import { allPost } from 'src/components/dashboard/ts/dashboardComponent';
+import { allPost , refresh } from 'src/components/dashboard/ts/dashboardComponent';
+import { Post } from 'src/models/post';
 
 const mapVariable = ref({
   lat : <number> 0,
@@ -75,6 +76,16 @@ const fullMap = (lat: number, long:number) => {
   fullMapView.value = true;
 }
 const maximizedToggle = ref(true);
+const like = (id: number) => {
+  Post.likePost(id)
+  .then(
+    (response)=>{
+      if (response.status == 200) {
+        refresh();
+      }
+    }
+  )
+}
 </script>
 
 <style lang="sass" scoped>

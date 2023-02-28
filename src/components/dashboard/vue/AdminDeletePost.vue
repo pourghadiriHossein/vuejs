@@ -28,7 +28,7 @@ import { Post } from 'src/models/post';
     longitude: {
       default: 49.6
     },
-    refresh: {}
+    refresh : {}
   });
 
   const tab = ref('image');
@@ -56,7 +56,7 @@ import { Post } from 'src/models/post';
   };
   const accepted = () => {
     emit.call(this, 'accepted');
-    Post.deletePost(props.id)
+    Post.adminDeletePost(props.id)
     .then(
       (response) => {
         if(response.status == 200){

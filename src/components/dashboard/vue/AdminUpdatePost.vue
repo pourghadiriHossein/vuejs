@@ -1,7 +1,9 @@
 <script setup lang="ts">
-  import { defineProps, defineEmits, ref } from 'vue';
+  import { defineProps, defineEmits, ref, watch } from 'vue';
   import MapView from 'src/components/map/mapView.vue';
 import { Post } from 'src/models/post';
+
+
 
   const props = defineProps({
     modelValue: {
@@ -10,14 +12,8 @@ import { Post } from 'src/models/post';
     id: {
       default: 0
     },
-    img: {
-      default: 'No Image'
-    },
     title: {
-      default: 'Title'
-    },
-    username: {
-      default: 'name'
+      default: 'Update'
     },
     description: {
       default: 'No Description'
@@ -28,17 +24,10 @@ import { Post } from 'src/models/post';
     longitude: {
       default: 49.6
     },
-    refresh: {}
+    refresh : {}
   });
 
-  const tab = ref('image');
-  const changeTab = () => {
-    if(tab.value == 'image')
-      tab.value = 'map';
-    else
-      tab.value = 'image';
-
-  }
+  const model = ref(null);
   const hidden = ref(true);
   const dangerErrorState = 'bg-red q-pa-sm text-white';
   const successErrorState = 'bg-green q-pa-sm text-white';
@@ -49,6 +38,22 @@ import { Post } from 'src/models/post';
   const closeErrorPart = () => {
     hidden.value = !hidden.value;
   }
+  const updatePostParameter = ref({
+    title: '',
+    description: '',
+    image: undefined,
+    latitude: <number> 37.28,
+    longitude: <number> 49.6,
+  })
+  watch(props, () => {
+    updatePostParameter.value = {
+      title: props.title,
+      description: props.description,
+      image: updatePostParameter.value.image,
+      latitude: props.latitude,
+      longitude: props.longitude,
+    }
+  })
   const emit = defineEmits(['update:model-value', 'accepted']);
 
   const close = () => {
@@ -56,7 +61,15 @@ import { Post } from 'src/models/post';
   };
   const accepted = () => {
     emit.call(this, 'accepted');
-    Post.deletePost(props.id)
+
+    Post.adminUpdatePost(
+      props.id,
+      updatePostParameter.value.title,
+      updatePostParameter.value.description,
+      updatePostParameter.value.image,
+      updatePostParameter.value.latitude,
+      updatePostParameter.value.longitude,
+    )
     .then(
       (response) => {
         if(response.status == 200){
@@ -87,7 +100,10 @@ import { Post } from 'src/models/post';
 <template>
 
   <q-dialog :model-value="modelValue" persistent>
-    <q-card class="my-card" style="min-width: 350px;">
+    <q-card style="min-width: 350px">
+      <q-card-section>
+        <div class="text-h6">Update Post {{ title }}</div>
+      </q-card-section>
       <q-card-section class="q-pt-none">
         <q-list :class="errorMessage.state" :hidden="hidden">
           <q-item>
@@ -102,46 +118,33 @@ import { Post } from 'src/models/post';
             </q-item>
         </q-list>
       </q-card-section>
-      <q-tab-panels v-model="tab" animated class="full-width">
-        <q-tab-panel name="image">
-          <q-img :src="img" :fit="'cover'"/>
-        </q-tab-panel>
-
-        <q-tab-panel name="map">
-          <map-view
-          :latitude="latitude"
-          :longitude="longitude"
-          :state="'delete'"
-          ></map-view>
-        </q-tab-panel>
-      </q-tab-panels>
-      <q-card-section>
-        <q-btn
-          fab
-          color="primary"
-          icon="place"
-          class="absolute"
-          style="top: 0; right: 12px; transform: translateY(-50%);"
-          @click="changeTab()"
-        />
-        <div class="row no-wrap items-center">
-          <div class="col text-h6 ellipsis">
-            {{ title }}
-          </div>
-        </div>
+      <q-card-section class="q-pt-none">
+        <q-input dense v-model:model-value="updatePostParameter.title" label="Enter Your Title"/>
       </q-card-section>
       <q-card-section class="q-pt-none">
-        <div class="text-subtitle1">
-          {{ username }}
-        </div>
-        <div class="text-caption text-grey">
-          {{ description }}
-        </div>
+          <q-input type="textarea" dense v-model:model-value="updatePostParameter.description" label="Enter Your Description"/>
       </q-card-section>
-      <q-separator />
-      <q-card-actions align="right">
-        <q-btn color="light-blue-8" icon-right="close" label="Cancel" @click="close"/>
-        <q-btn color="red" icon-right="delete" label="Remove" @click="accepted"/>
+      <q-card-section class="q-pt-none">
+        <q-file filled bottom-slots v-model:model-value="updatePostParameter.image" label="Post Image" counter>
+          <template v-slot:prepend>
+            <q-icon name="cloud_upload" @click.stop.prevent />
+          </template>
+          <template v-slot:append>
+            <q-icon name="close" @click.stop.prevent="updatePostParameter.image = null" class="cursor-pointer" />
+          </template>
+          <template v-slot:hint>
+            File Size
+          </template>
+        </q-file>
+      </q-card-section>
+      <map-view
+      v-model:latitude="updatePostParameter.latitude"
+      v-model:longitude="updatePostParameter.longitude"
+      :state="'update'"
+      ></map-view>
+      <q-card-actions align="right" class="text-primary">
+        <q-btn color="red" icon-right="close" label="Cancel" @click="close"/>
+        <q-btn color="light-blue-8" icon-right="update" label="Update" @click="accepted"/>
       </q-card-actions>
     </q-card>
   </q-dialog>

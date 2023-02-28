@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, ref, onMounted } from 'vue';
+import { defineProps, defineEmits, ref, onMounted } from 'vue';
 import { Ref } from 'vue';
 import maplibregl from 'maplibre-gl';
 
@@ -18,6 +18,7 @@ const latlong = ref({
   lat: <number> 37.28,
   long: <number> 49.6
 });
+const emit = defineEmits(['update:latitude', 'update:longitude']);
 
 function createMapObject( mapRef: Ref, defaultCoordinated: maplibregl.LngLatLike = [props.longitude, props.latitude]) {
   const mapObject = new maplibregl.Map({
@@ -55,6 +56,8 @@ onMounted(() => {
     const lngLat = marker.getLngLat();
     latlong.value.lat = lngLat.lat;
     latlong.value.long = lngLat.lng;
+    emit.call(this, 'update:latitude', latlong.value.lat);
+    emit.call(this, 'update:longitude', latlong.value.long);
   };
   marker.on('dragend', onDragEnd);
 });

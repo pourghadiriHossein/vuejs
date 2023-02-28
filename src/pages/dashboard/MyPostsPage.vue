@@ -7,6 +7,9 @@
       :columns="columns"
       row-key="name"
       :filter="filter"
+      :rows-per-page-options="[0]"
+      v-model:pagination="pagination"
+      @request="onRequest"
     >
       <template v-slot:top-right>
         <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
@@ -22,6 +25,7 @@
         :title="createPostParameter.title"
         :username="createPostParameter.username"
         :description="createPostParameter.description"
+        :refresh="onRequest"
         ></create-post>
       </template>
       <template v-slot:header="props">
@@ -63,6 +67,7 @@
   :description="updatePostParameter.description"
   :latitude="updatePostParameter.latitude"
   :longitude="updatePostParameter.longitude"
+  :refresh="onRequest"
   ></update-post>
   <delete-post
   v-model:model-value="confirmOpenDeletePost"
@@ -73,18 +78,19 @@
   :description="deletePostParameter.description"
   :latitude="deletePostParameter.latitude"
   :longitude="deletePostParameter.longitude"
+  :refresh="onRequest"
   ></delete-post>
 </template>
 
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import {columns, rows} from 'src/components/dashboard/ts/myPostComponent';
+  import {columns, rows , pagination, onRequest} from 'src/components/dashboard/ts/myPostComponent';
   import CreatePost from 'src/components/dashboard/vue/CreatePost.vue'
   import UpdatePost from 'src/components/dashboard/vue/UpdatePost.vue';
   import DeletePost from 'src/components/dashboard/vue/DeletePost.vue';
   import {profile} from 'src/components/dashboard/ts/profileComponent';
 
-
+  const serverRoute = 'http://127.0.0.1:8000/';
   const filter = ref('');
   const createPostParameter = ref({
     id: <number>0,
@@ -130,7 +136,10 @@
   const confirmOpenDeletePost = ref(false);
   const openConfirmDeletePostDialog = (row: any) => {
     deletePostParameter.value.id = row.id;
-    deletePostParameter.value.img = row.image;
+    if(row.media[0]?.url)
+      deletePostParameter.value.img = serverRoute + row.media[0].url;
+    else
+      deletePostParameter.value.img = '';
     deletePostParameter.value.title = row.title;
     deletePostParameter.value.username = profile.username;
     deletePostParameter.value.description = row.description;

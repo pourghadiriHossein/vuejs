@@ -1,3 +1,6 @@
+import { Post } from "src/models/post";
+import { ref } from "vue";
+
 const columns: any = [
   { name: 'id', align: 'left', label: 'ID', field: 'id', sortable: true },
   { name: 'name', align: 'center', label: 'User Name', field: 'name', sortable: true },
@@ -5,97 +8,37 @@ const columns: any = [
   { name: 'description', align: 'center', label: 'Description', field: 'description', sortable: true },
 ]
 
-const rows: any = [
-  {
-    id: 1,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.27,
-    longitude: 49.53,
-  },
-  {
-    id: 2,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.25,
-    longitude: 49.58,
-  },
-  {
-    id: 3,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.31,
-    longitude: 49.61,
-  },
-  {
-    id: 4,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.26,
-    longitude: 49.58,
-  },
-  {
-    id: 5,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.27,
-    longitude: 49.57,
-  },
-  {
-    id: 6,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.22,
-    longitude: 49.53,
-  },
-  {
-    id: 7,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.26,
-    longitude: 49.51,
-  },
-  {
-    id: 8,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.24,
-    longitude: 49.55,
-  },
-  {
-    id: 9,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.24,
-    longitude: 49.58,
-  },
-  {
-    id: 10,
-    name: 'Hossein Pourghadiri',
-    title: 'Masal',
-    description: 'Best Mountains and View In World',
-    image: 'src/image/mountains.jpg',
-    latitude: 37.27,
-    longitude: 49.51,
-  },
-]
+const rows = ref();
 
-export {columns, rows}
+const pagination = ref({
+  sortBy: 'desc',
+  descending: false,
+  page: 1,
+  rowsPerPage: 5,
+  rowsNumber: 100
+})
+const onRequest = (data: any) => {
+  if(!data){
+    Post.allPostsForAdmin(1)
+    .then(
+      (response) => {
+        rows.value = response.data.posts;
+        pagination.value.page = response.data.meta?.pagination?.posts.current_page ?? 1;
+        pagination.value.rowsNumber = response.data.meta?.pagination?.posts.total ?? 1;
+      }
+      )
+    }
+    else{
+    Post.allPostsForAdmin(data.pagination.page)
+    .then(
+      (response) => {
+        rows.value = response.data.posts;
+        pagination.value.page = response.data.meta?.pagination?.posts.current_page ?? 1;
+        pagination.value.rowsNumber = response.data.meta?.pagination?.posts.total ?? 1;
+      }
+    )
+  }
+}
+onRequest(null);
+
+export {columns, rows, pagination, onRequest}

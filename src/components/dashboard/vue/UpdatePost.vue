@@ -1,8 +1,9 @@
 <script setup lang="ts">
-  import { defineProps, defineEmits, ref } from 'vue';
+  import { defineProps, defineEmits, ref, watch } from 'vue';
   import MapView from 'src/components/map/mapView.vue';
+import { Post } from 'src/models/post';
 
-  const model = ref(null);
+
 
   const props = defineProps({
     modelValue: {
@@ -22,9 +23,37 @@
     },
     longitude: {
       default: 49.6
-    }
+    },
+    refresh: {}
   });
 
+  const model = ref(null);
+  const hidden = ref(true);
+  const dangerErrorState = 'bg-red q-pa-sm text-white';
+  const successErrorState = 'bg-green q-pa-sm text-white';
+  const errorMessage = ref({
+    error:  [],
+    state: ''
+  });
+  const closeErrorPart = () => {
+    hidden.value = !hidden.value;
+  }
+  const updatePostParameter = ref({
+    title: '',
+    description: '',
+    image: undefined,
+    latitude: <number> 37.28,
+    longitude: <number> 49.6,
+  })
+  watch(props, () => {
+    updatePostParameter.value = {
+      title: props.title,
+      description: props.description,
+      image: updatePostParameter.value.image,
+      latitude: props.latitude,
+      longitude: props.longitude,
+    }
+  })
   const emit = defineEmits(['update:model-value', 'accepted']);
 
   const close = () => {
@@ -32,6 +61,39 @@
   };
   const accepted = () => {
     emit.call(this, 'accepted');
+
+    Post.updatePost(
+      props.id,
+      updatePostParameter.value.title,
+      updatePostParameter.value.description,
+      updatePostParameter.value.image,
+      updatePostParameter.value.latitude,
+      updatePostParameter.value.longitude,
+    )
+    .then(
+      (response) => {
+        if(response.status == 200){
+          if(response.data.errors) {
+            errorMessage.value.error = response.data.errors;
+            errorMessage.value.state = successErrorState;
+            hidden.value = false;
+            props.refresh();
+            setTimeout(() => {
+              emit.call(this, 'update:model-value', false);
+            }, 2000);
+          }
+        }
+      },
+      (reject) => {
+        if(reject.response.status != 200){
+          if(reject.response.data.errors) {
+            errorMessage.value.error = reject.response.data.errors;
+            errorMessage.value.state = dangerErrorState;
+            hidden.value = false;
+          }
+        }
+      }
+    )
   };
 </script>
 
@@ -43,18 +105,32 @@
         <div class="text-h6">Update Post {{ title }}</div>
       </q-card-section>
       <q-card-section class="q-pt-none">
-        <q-input dense :model-value="title" label="Enter Your Title"/>
+        <q-list :class="errorMessage.state" :hidden="hidden">
+          <q-item>
+            <q-btn size="sm" color="trasparent" dense icon="close" @click="closeErrorPart()"></q-btn>
+          </q-item>
+          <q-separator inset dark />
+
+          <q-item v-for="item in errorMessage.error" :key="item">
+              <q-item-section>
+                {{item[0] }}
+              </q-item-section>
+            </q-item>
+        </q-list>
       </q-card-section>
       <q-card-section class="q-pt-none">
-          <q-input type="textarea" dense :model-value="description" label="Enter Your Description"/>
+        <q-input dense v-model:model-value="updatePostParameter.title" label="Enter Your Title"/>
       </q-card-section>
       <q-card-section class="q-pt-none">
-        <q-file filled bottom-slots v-model="model" label="Post Image" counter>
+          <q-input type="textarea" dense v-model:model-value="updatePostParameter.description" label="Enter Your Description"/>
+      </q-card-section>
+      <q-card-section class="q-pt-none">
+        <q-file filled bottom-slots v-model:model-value="updatePostParameter.image" label="Post Image" counter>
           <template v-slot:prepend>
             <q-icon name="cloud_upload" @click.stop.prevent />
           </template>
           <template v-slot:append>
-            <q-icon name="close" @click.stop.prevent="model = null" class="cursor-pointer" />
+            <q-icon name="close" @click.stop.prevent="updatePostParameter.image = null" class="cursor-pointer" />
           </template>
           <template v-slot:hint>
             File Size
@@ -62,8 +138,9 @@
         </q-file>
       </q-card-section>
       <map-view
-      :latitude="latitude"
-      :longitude="longitude"
+      v-model:latitude="updatePostParameter.latitude"
+      v-model:longitude="updatePostParameter.longitude"
+      :state="'update'"
       ></map-view>
       <q-card-actions align="right" class="text-primary">
         <q-btn color="red" icon-right="close" label="Cancel" @click="close"/>
