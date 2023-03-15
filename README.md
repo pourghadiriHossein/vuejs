@@ -83,10 +83,18 @@ public function boot()
     Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
 }
 ```
-- ### Loading Keys From The Environment
+- ### Create secrets Folder in App Directory then Create oauth Folder in secrets Folder
+
+- ### Loading Keys
+```bash
+php artisan passport:keys
+```
+
+- ### Config Customization
 ```bash
 php artisan vendor:publish --tag=passport-config
 ```
+
 - ### Migration Customization
 ```bash
 php artisan vendor:publish --tag=passport-migrations
