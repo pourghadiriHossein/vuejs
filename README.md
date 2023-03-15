@@ -72,11 +72,6 @@ class User extends Authenticatable
 ],
 ```
 
-- ### Deploying Passport
-```bash
-php artisan passport:keys
-```
-
 - ### Passport::loadKeysFrom in App\Providers\AuthServiceProvider
 ```bash
 public function boot()
