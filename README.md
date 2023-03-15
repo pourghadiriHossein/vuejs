@@ -23,6 +23,72 @@ HasRoles
 ```
 
 ## <a href="https://laravel.com/docs/9.x/passport">Set Laravel Passport For Project</a>
+- ### Installation
+```bash
+composer require laravel/passport
+```
+- ### Migaret Table
+```bash
+php artisan migrate
+```
+- ### Command For Create the Encryption Keys
+```bash
+php artisan passport:install
+```
+- ### Add HasApiTokens to User Model
+```bash
+<?php
+ 
+namespace App\Models;
+ 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
+ 
+class User extends Authenticatable
+{
+    use HasApiTokens, HasFactory, Notifiable;
+}
+```
+
+- ### Update Guard Part in config/auth.php
+```bash
+'guards' => [
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
+    ],
+ 
+    'api' => [
+        'driver' => 'passport',
+        'provider' => 'users',
+    ],
+],
+```
+
+- ### Deploying Passport
+```bash
+php artisan passport:keys
+```
+
+- ### Passport::loadKeysFrom in App\Providers\AuthServiceProvider
+```bash
+public function boot()
+{
+    $this->registerPolicies();
+ 
+    Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
+}
+```
+- ### Loading Keys From The Environment
+```bash
+php artisan vendor:publish --tag=passport-config
+```
+- ### Migration Customization
+```bash
+php artisan vendor:publish --tag=passport-migrations
+```
 
 <ol>
         <li>
