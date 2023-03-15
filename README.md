@@ -74,6 +74,8 @@ class User extends Authenticatable
 
 - ### Passport::loadKeysFrom in App\Providers\AuthServiceProvider
 ```bash
+use Laravel\Passport\Passport;
+
 public function boot()
 {
     $this->registerPolicies();
