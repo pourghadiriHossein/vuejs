@@ -35,6 +35,11 @@ php artisan migrate
 ```bash
 php artisan passport:install
 ```
+- ### Add AUTH_WEB_CLIENT_ID and AUTH_WEB_CLIENT_SECRET in .env file
+```bash
+AUTH_WEB_CLIENT_ID=
+AUTH_WEB_CLIENT_SECRET=
+```
 - ### Add HasApiTokens to User Model
 ```bash
 <?php
