@@ -65,7 +65,7 @@ class UserController extends Controller
             if ($request->input('email') == Auth::user()->email) {
                 $user->update(['name' => $data['name']]);
             } else {
-                if (User::where('email', $request->input('email'))) {
+                if (User::where('email', $request->input('email'))->first()) {
                     return $this->failResponse([
                         'errors' => ['error' => ['This E-Mail Already Exist']],
                     ]);
