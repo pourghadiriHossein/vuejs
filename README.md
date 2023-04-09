@@ -100,6 +100,56 @@ php artisan vendor:publish --tag=passport-config
 php artisan vendor:publish --tag=passport-migrations
 ```
 
+## Update User Model and Migration
+- ### Model
+```bash
+use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
+protected $guard_name = "api";
+
+/**
+ * The attributes that are mass assignable.
+ *
+ * @var array<int, string>
+ */
+protected $fillable = [
+    'name',
+    'email',
+    'password',
+];
+
+/**
+ * The attributes that should be hidden for serialization.
+ *
+ * @var array<int, string>
+ */
+protected $hidden = [
+    'password',
+    'remember_token',
+];
+
+/**
+ * The attributes that should be cast.
+ *
+ * @var array<string, string>
+ */
+protected $casts = [
+    'email_verified_at' => 'datetime',
+];
+
+public function posts() {
+    return $this->hasMany(Post::class);
+}
+
+public function upVotes() {
+    return $this->hasMany(UpVote::class);
+}
+
+public function media() {
+    return $this->morphToMany(Media::class, 'model', 'model_has_media');
+}
+```
+
 
 ## Create Post Model and Migration
 - ### Create Post Model and Migration Command
