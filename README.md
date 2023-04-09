@@ -100,7 +100,7 @@ php artisan vendor:publish --tag=passport-config
 php artisan vendor:publish --tag=passport-migrations
 ```
 
-## Update User Model and Migration
+## Update User Model
 - ### Model
 ```bash
 use HasApiTokens, HasFactory, Notifiable, HasRoles;
